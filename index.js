@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
-const token = process.env.token;
+const token = process.argv.length == 2 ? process.env.token : "";
 const moment = require("moment");
 require("moment-duration-format");
 const welcomeChannelName = "안녕하세요";
@@ -38,13 +38,13 @@ client.on('message', (message) => {
     return message.reply('pong');
   }
 
-  if(message.content == '/서버 상태') {
+  if(message.content == '!si') {
     let embed = new Discord.RichEmbed()
-    let img = 'https://images-ext-1.discordapp.net/external/RyofVqSAVAi0H9-1yK6M8NGy2grU5TWZkLadG-rwqk0/https/i.imgur.com/EZRAPxR.png';
+    let img = 'https://cdn.discordapp.com/icons/419671192857739264/6dccc22df4cb0051b50548627f36c09b.webp?size=256';
     var duration = moment.duration(client.uptime).format(" D [일], H [시간], m [분], s [초]");
     embed.setColor('#186de6')
-    embed.setAuthor('server info of [푸른달빛] Manager', img)
-    embed.setFooter(`[푸른달빛] Manager`)
+    embed.setAuthor('server info of [푸른달빛] BOT', img)
+    embed.setFooter(`[푸른달빛] BOT`)
     embed.addBlankField()
     embed.addField('RAM usage',    `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`, true);
     embed.addField('running time', `${duration}`, true);
@@ -74,21 +74,20 @@ client.on('message', (message) => {
     let embed = new Discord.RichEmbed()
       .setTitle('타이틀')
       .setURL('http://www.naver.com')
-      .setAuthor('RedMOON', img, 'http://www.naver.com')
+      .setAuthor('RedMOON-droid', img, 'http://www.naver.com')
       .setThumbnail(img)
       .addBlankField()
-      .addField('농작물캐기(농사)', '2000번')
-      .addField('돌캐기(광질)', '5000번', true)
-      .addField('낚시(포켓몬낚시)', '50번', true)
-      .addField('우박사 포켓몬 기부', '50번', true)
-      .addField('화석 채광', '10번', true)
+      .addField('농작물 캐기 ', '2000번')
+      .addField('광질', '2000번', true)
       .addField('도전과제 올클리어', '1번', true)
+      .addField('낚시', '100번', true)
+      .addField('화석 채광', '10번')
       .addBlankField()
       .setTimestamp()
-      .setFooter('Made By RedMOON', img)
+      .setFooter('정우가 만듬', img)
 
     message.channel.send(embed)
-  } else if(message.content == '/도움말') {
+  } else if(message.content == '!help') {
     let helpImg = 'https://images-ext-1.discordapp.net/external/RyofVqSAVAi0H9-1yK6M8NGy2grU5TWZkLadG-rwqk0/https/i.imgur.com/EZRAPxR.png';
     let commandList = [
       {name: '/도움말', desc: '도움말'},
@@ -102,9 +101,9 @@ client.on('message', (message) => {
     ];
     let commandStr = '';
     let embed = new Discord.RichEmbed()
-      .setAuthor('Help of [푸른달빛] Manager', helpImg)
+      .setAuthor('Help of [푸른달빛] BOT', helpImg)
       .setColor('#186de6')
-      .setFooter(`[푸른달빛] Manager`)
+      .setFooter(`[푸른달빛] BOT`)
       .setTimestamp()
     
     commandList.forEach(x => {
@@ -144,9 +143,9 @@ client.on('message', (message) => {
     if(message.member != null) { // 채널에서 공지 쓸 때
       let contents = message.content.slice('!전체공지2'.length);
       let embed = new Discord.RichEmbed()
-        .setAuthor('공지 of [푸른달빛] Manager')
+        .setAuthor('공지 of [푸른달빛] BOT')
         .setColor('#186de6')
-        .setFooter(`[푸른달빛] Manager`)
+        .setFooter(`[푸른달빛] BOT`)
         .setTimestamp()
   
       embed.addField('공지: ', contents);
